@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wagwan</title>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=places"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> 
+	<script type="text/javascript" src="./js/app.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+
+</head>
+<body>
+<header>
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <img id="logo" src=""><a class="navbar-brand" href="#" >ExtremeAdvisor</a>
+
+
+      <div class="navbar-collapse collapse navbar-responsive-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="#" data-id="locations">Locations</a>
+          </li>
+          <li><a href="#" data-id="map">map</a>
+          </li>
+          <li><a href="#" data-id="add-location">ADD location</a>
+          </li>
+          <li><a href="#" data-id="logib">Login</a>
+          </li>
+          <li>
+          <a href="#" id="logout-btn" data-id="home">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div id="home" data-id="home" class="tab">
+  <section class="image-bg-fixed-height">
+    <div class="container home-img-txt">
+      <div class="row">
+        <h1>Add the world’s most extreme locations to your bucket list.</h1>
+        <a href="#" class="btn btn-lg btn-success" data-id="login"><span class="glyphicon glyphicon-share-alt"></span> Log in</a>
+        <a href="#" class="btn btn-lg btn-primary" data-id="signup"><span class="glyphicon glyphicon-cloud-upload"></span> Sign Up</a>
+        <!-- <img class="img-responsive img-center" src="http://placehold.it/200x200&text=Logo" alt=""> -->
+      </div>
+    </div>
+  </section>
+  <div class="row featured-container">
+    <div class="container">
+      <section class="featured">
+        <div class="col-md-4">
+          <div class="circle">
+          </div>
+          <h4 class="text-center">Discover new places to paraglide, ski or dive</h4>
+        </div>
+        <div class="col-md-4">
+          <div class="circle">
+          </div>
+          <h4 class="text-center">
+           Share top secret spot with  your followers</h4>
+         </div>
+         <div class="col-md-4">
+          <div class="circle">
+          </div>
+          <h4 class="text-center">Add new places to the extreme bucket list</h4>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div class="container">
+    <div class="col-xs-12 location-list">
+      <div class="row">
+        <div class="col-xs-6 sports-home">
+          <div class="mini-box">
+            <h2 class="text-left">Diving</h2>
+          </div>
+        </div>
+        <div class="col-xs-6 sports-home">
+          <div class="mini-box">
+            <h2 class="text-left">Paragliding</h2>
+          </div>
+        </div>
+        <div class="col-xs-6 sports-home">
+          <div class="mini-box">
+            <h2 class="text-left">Skiing</h2>
+          </div>
+        </div>
+        <div class="col-xs-6 sports-home">
+          <div class="mini-box">
+            <h2 class="text-left">Free Climbing</h2>
+          </div>
+        </div>
+        <div class="col-xs-6 sports-home">
+          <div class="mini-box">
+            <h2 class="text-left">Surfing</h2>
+          </div>
+        </div>
+        <div class="col-xs-6 sports-home">
+          <div class="mini-box">
+            <h2 class="text-left">Kite Surfing</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="container">
+<div class="row">
+  <div id="new-location" class="tab">
+    <h1>Add a Location</h1>
+    <div id="location-image">
+
+    </div>
+    <hr></hr>
+    <form class="form-horizontal container">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input class="form-control" id="location" name="location" type="text" placeholder="Enter location">
+      </div>
+      <div class="form-group">
+        <label for="sport">Sport</label>
+        <select class="form-control" name="selectpicker" id="sport-select" value="">
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input class="form-control" type="text" name="description" id="description" value="">
+      </div>
+      <div class="form-group">
+        <label for="image">Image</label>
+        <input class="form-control" type="text" name="image" id="image">
+      </div>
+      <div class="form-group">
+        <input type="submit" id="submitLocation" name="locationBtn" class="btn btn-primary" value="Add Location">
+      </div>
+    </form>
+    </div>
+  </div>
+  <div id="login" class="tab">
+    <h1>Login</h1>
+    <form id="login-form" method="post" action="/api/authenticate">
+      <div class="form-group">
+        <label for="login-email">Email</label>
+        <input class="form-control" type="text" name="login-email" id="login-email">
+      </div>
+      <div class="form-group">
+        <label for="login-password">Password</label>
+        <input class="form-control" type="password" name="login-password" id="login-password">
+      </div>
+      <input class="btn btn-default" type="submit">
+    </form>
+  </div>
+  <div id="locations" class="tab container">
+    <div class="row">
+      <em><h1 class="text-center">Locations</h1></em>
+      <div id="map"></div>
+
+      <ul id="locations-list">
+        <hr>
+      </ul>
+    </div>
+  </div>
+
+
+<div id="map" class="tab">
+</div>
+<h1>Hello</h1>
+</body>
+</html>
