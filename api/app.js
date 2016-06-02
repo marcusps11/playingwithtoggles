@@ -6,7 +6,7 @@ var bodyParser      = require('body-parser');
 var mongoose        = require('mongoose');
 var methodOverride  = require("method-override");
 var app 						= express();
-
+var twitter = require('./controllers/twitterController');
 var Bar           = require('./models/bar');
 
 
@@ -39,6 +39,8 @@ app.use(function (err, req, res, next) {
   }
   next();
 });
+
+app.get('/twitter', twitter.getTweets);
 
 
 app.use("/api", routes);

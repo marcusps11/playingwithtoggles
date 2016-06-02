@@ -1,12 +1,15 @@
 $(document).ready(function() {
 	Wagwan.initialize();
+	$(window).resize(function() {
+	        google.maps.event.trigger(map, 'resize');
+	    });
+	    google.maps.event.trigger(map, 'resize');
 });
 
 var Wagwan = Wagwan || {};
 var marker;
 
 Wagwan.initialize = function() {
-	// Wagwan.indexBar();
 	Wagwan.addBars();
 
 	window.map = new google.maps.Map(document.getElementById('map'), {
@@ -15,7 +18,6 @@ Wagwan.initialize = function() {
 		zoom: 12
 	});
 };
-
 
 
 Wagwan.addBars = function(){
@@ -46,7 +48,7 @@ Wagwan.markBar = function(bar) {
 
 Wagwan.markerClick = function(bar, marker) {
 	if (infowindow) infowindow.close();
-	console.log(bar)
+	console.log(bar);
 	var infowindow = new google.maps.InfoWindow({
 	    content: bar.name
 	  });
@@ -57,7 +59,8 @@ Wagwan.markerClick = function(bar, marker) {
 
 Wagwan.bindEvents = function() {
 	$(".nav li a").on("click", Wagwan.ui.toggleTab);
-}
+	$("#test").on("click", Wagwan.twitter.getTweets);
+};
 
 Wagwan.ui = {};
 
@@ -72,6 +75,17 @@ Wagwan.ui.toggleDisplays = function(id){
   $('.tab').slideUp(1000);
   $("#" + id).toggle(1000);
   
+};
+
+Wagwan.twitter = {};
+
+Wagwan.twitter.getTweets = function() {
+	var ajax = $.ajax({
+		method: "get",
+		url: 'https://api.twitter.com/1/statuses/user_timeline/marcusps11.json?count=1&include_rts=1&callback=?'
+	}).done(function(data){
+			console.log(data);
+	});
 };
 
 
