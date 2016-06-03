@@ -20,6 +20,24 @@ function getTweets(req, res) {
 }
 
 
+function getVideos(req, res) {
+	
+	Client.get('oembed', {url: "https%3A%2F%2Ftwitter.com%2FInterior%2Fstatus%2F507185938620219395"},
+	 function(error, videos) {
+			if (error) {
+			console.log(error);
+			console.log('hello')
+
+		} else {
+			console.log(videos);
+		}
+		res.json('hello');
+	});
+}
+
+
+
 module.exports = {
 	getTweets:   getTweets,
+	getVideos: 	getVideos
 };

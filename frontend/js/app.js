@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	Wagwan.initialize();
+	Wagwan.twitter.getTweets();
 	$(window).resize(function() {
 	        google.maps.event.trigger(map, 'resize');
 	    });
@@ -11,6 +12,7 @@ var marker;
 
 Wagwan.initialize = function() {
 	Wagwan.addBars();
+	
 
 	window.map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 51.525964, lng: -0.080139},
@@ -48,7 +50,6 @@ Wagwan.markBar = function(bar) {
 
 Wagwan.markerClick = function(bar, marker) {
 	if (infowindow) infowindow.close();
-	console.log(bar);
 	var infowindow = new google.maps.InfoWindow({
 	    content: bar.name
 	  });
@@ -59,7 +60,7 @@ Wagwan.markerClick = function(bar, marker) {
 
 Wagwan.bindEvents = function() {
 	$(".nav li a").on("click", Wagwan.ui.toggleTab);
-	$("#test").on("click", Wagwan.twitter.getTweets);
+	// $("#test").on("click", Wagwan.twitter.getTweets);
 };
 
 Wagwan.ui = {};
@@ -82,14 +83,18 @@ Wagwan.twitter = {};
 Wagwan.twitter.getTweets = function() {
 	var ajax = $.ajax({
 		method: "get",
-		url: 'https://api.twitter.com/1/statuses/user_timeline/marcusps11.json?count=1&include_rts=1&callback=?'
+		url: 'http://localhost:3000/api/twitter'
 	}).done(function(data){
 			console.log(data);
+			Wagwan.twitter.showData(data);
 	});
+};
+
+Wagwan.twitter.showData = function(data) {
+	$('#twitter').append("<p>" + data.tweets + "</p>" )
 };
 
 
 $(function(){
-  Wagwan.initialize();
   Wagwan.bindEvents();
 });
